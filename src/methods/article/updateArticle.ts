@@ -30,7 +30,7 @@ export default (
         type: TYPES.get(options.status),
       });
       await articleOperation.save();
-      ctx.body = new Response(ResponseStatus.OK).body;
+      ctx.body = new Response(ResponseStatus.OK, null, '修改文章成功').body;
     }
   } catch (err) {
     ctx.body = new Response(ResponseStatus.ERROR, null, '修改文章失败', err).body;

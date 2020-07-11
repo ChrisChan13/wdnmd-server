@@ -10,7 +10,7 @@ import updateArticleStatus from '../../methods/article/updateArticleStatus';
 const router = new Router();
 
 router.get('/', getArticles({ status: ArticleStatus.DRAFT })); // 查询草稿箱文章
-router.get('/:id', getArticle({ status: ArticleStatus.DRAFT })); // 查询草稿箱文章内容
+router.get('/:id', getArticle({ isAdmin: true, status: ArticleStatus.DRAFT })); // 查询草稿箱文章内容
 router.put('/', addArticle({ status: ArticleStatus.DRAFT })); // 添加草稿箱文章
 router.post('/:id', updateArticle({ status: ArticleStatus.DRAFT })); // 更新草稿箱文章内容
 router.post('/:id/online', updateArticleStatus({ status: ArticleStatus.ONLINE })); // 上架草稿箱文章

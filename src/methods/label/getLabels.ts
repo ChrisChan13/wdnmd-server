@@ -19,7 +19,7 @@ export default (options = {
       query.select('label alias parent');
     }
     const labels = await query.exec();
-    ctx.body = new Response(ResponseStatus.OK, labels).body;
+    ctx.body = new Response(ResponseStatus.OK, labels, '获取标签列表成功').body;
   } catch (err) {
     ctx.body = new Response(ResponseStatus.ERROR, null, '获取标签列表失败', err).body;
   }

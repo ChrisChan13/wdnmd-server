@@ -12,7 +12,7 @@ export default () => async (ctx: Context) => {
     });
     if (article) {
       await ArticleOperationModel.deleteMany({ article: id });
-      ctx.body = new Response(ResponseStatus.OK).body;
+      ctx.body = new Response(ResponseStatus.OK, null, '删除文章成功').body;
     } else {
       ctx.body = new Response(ResponseStatus.ERROR, null, '删除文章失败').body;
     }

@@ -8,7 +8,7 @@ export default () => async (ctx: Context) => {
     const { id } = ctx.params;
     const label = await ArticleLabelModel.findById(id);
     if (label) {
-      ctx.body = new Response(ResponseStatus.OK, label).body;
+      ctx.body = new Response(ResponseStatus.OK, label, '获取标签信息成功').body;
     } else {
       ctx.body = new Response(ResponseStatus.ERROR, null, '该标签不存在').body;
     }

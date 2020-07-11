@@ -35,7 +35,7 @@ export default () => async (ctx: Context) => {
       heat: '$weights',
     });
     const heatmap = await aggregate.exec();
-    ctx.body = new Response(ResponseStatus.OK, heatmap).body;
+    ctx.body = new Response(ResponseStatus.OK, heatmap, '获取活跃度成功').body;
   } catch (err) {
     ctx.body = new Response(ResponseStatus.ERROR, null, '获取活跃度失败', err).body;
   }

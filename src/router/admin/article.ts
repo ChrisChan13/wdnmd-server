@@ -9,8 +9,8 @@ import updateArticleStatus from '../../methods/article/updateArticleStatus';
 
 const router = new Router();
 
-router.get('/', getArticles()); // 查询文章列表
-router.get('/:id', getArticle()); // 查询文章内容
+router.get('/', getArticles({ status: [ArticleStatus.OFFLINE, ArticleStatus.ONLINE] })); // 查询文章列表
+router.get('/:id', getArticle({ isAdmin: true, status: [ArticleStatus.OFFLINE, ArticleStatus.ONLINE] })); // 查询文章内容
 router.put('/', addArticle()); // 添加文章
 router.post('/:id', updateArticle()); // 更新文章内容
 router.post('/:id/offline', updateArticleStatus()); // 下架文章

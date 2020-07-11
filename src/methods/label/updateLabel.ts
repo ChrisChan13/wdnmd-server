@@ -18,7 +18,7 @@ export default () => async (ctx: Context) => {
     if (updated.nModified !== 1) {
       ctx.body = new Response(ResponseStatus.ERROR, null, '更新标签失败').body;
     } else {
-      ctx.body = new Response(ResponseStatus.ERROR).body;
+      ctx.body = new Response(ResponseStatus.OK, null, '更新标签成功').body;
     }
   } catch (err) {
     ctx.body = new Response(ResponseStatus.ERROR, null, '更新标签失败', err).body;

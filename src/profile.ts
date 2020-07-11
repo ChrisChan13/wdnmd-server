@@ -4,7 +4,7 @@ export default {
   Gender: 'Male',
   Location: 'Guangzhou, Guangdong, China',
   Languages: {
-    Chiness: 'Native',
+    Chinese: 'Native',
     English: 'CET-6',
   },
   Github: 'https://github.com/ChrisChan13',

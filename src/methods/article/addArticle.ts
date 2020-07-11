@@ -29,7 +29,7 @@ export default (
       type,
     });
     await articleOperation.save();
-    ctx.body = new Response(ResponseStatus.OK, { article: article._id }).body;
+    ctx.body = new Response(ResponseStatus.OK, { article: article._id }, '添加文章成功').body;
   } catch (err) {
     ctx.body = new Response(ResponseStatus.ERROR, null, '添加文章失败', err).body;
   }

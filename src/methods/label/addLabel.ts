@@ -8,7 +8,7 @@ export default () => async (ctx: Context) => {
     delete labelData._id;
     const label = new ArticleLabelModel(labelData);
     await label.save();
-    ctx.body = new Response(ResponseStatus.OK, { label: label._id }).body;
+    ctx.body = new Response(ResponseStatus.OK, { label: label._id }, '添加标签成功').body;
   } catch (err) {
     ctx.body = new Response(ResponseStatus.ERROR, null, '添加标签失败', err).body;
   }

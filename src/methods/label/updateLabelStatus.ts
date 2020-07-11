@@ -23,7 +23,7 @@ export default (
     if (updated.nModified < 1) {
       ctx.body = new Response(ResponseStatus.ERROR, null, `${action}标签失败`).body;
     } else {
-      ctx.body = new Response(ResponseStatus.OK).body;
+      ctx.body = new Response(ResponseStatus.OK, null, `${action}标签成功`).body;
     }
   } catch (err) {
     ctx.body = new Response(ResponseStatus.ERROR, null, `${action}标签失败`).body;

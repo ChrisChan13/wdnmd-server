@@ -23,6 +23,11 @@ export default (
     articleData.status === ArticleStatus.ONLINE && Object.assign(articleData, {
       postedAt: Date.now(),
     });
+    articleData.status === ArticleStatus.TRASH && Object.assign(articleData, {
+      $unset: {
+        postedAt: 1,
+      },
+    });
     const updated = await ArticleModel.updateOne({ _id: id }, articleData);
     if (updated.nModified !== 1) {
       ctx.body = new Response(ResponseStatus.ERROR, null, `${action?.text}文章失败`).body;
@@ -33,7 +38,7 @@ export default (
         weight: action?.weight,
       });
       await articleOperation.save();
-      ctx.body = new Response(ResponseStatus.OK).body;
+      ctx.body = new Response(ResponseStatus.OK, null, `${action?.text}文章成功`).body;
     }
   } catch (err) {
     ctx.body = new Response(ResponseStatus.ERROR, null, `${action?.text}文章失败`, err).body;

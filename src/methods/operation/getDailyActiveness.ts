@@ -48,7 +48,7 @@ export default () => async (ctx: Context) => {
       operations: 1,
     });
     const activeness = await aggregate.exec();
-    ctx.body = new Response(ResponseStatus.OK, activeness).body;
+    ctx.body = new Response(ResponseStatus.OK, activeness, '获取动态成功').body;
   } catch (err) {
     ctx.body = new Response(ResponseStatus.ERROR, null, '获取动态失败', err).body;
   }

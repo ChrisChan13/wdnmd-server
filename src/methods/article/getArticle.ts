@@ -3,22 +3,31 @@ import { Context } from 'koa';
 import ArticleModel, { Status as ArticleStatus } from '../../models/article';
 import Response, { Status as ResponseStatus } from '../../utils/Response';
 
-export default (
-  options = { status: ArticleStatus.ONLINE },
-) => async (ctx: Context) => {
+export default (options = {
+  isAdmin: false,
+  status: (ArticleStatus.ONLINE as any),
+}) => async (ctx: Context) => {
   try {
     const { id } = ctx.params;
     const query = ArticleModel.findOne();
     const conditions = {
       _id: id,
-      status: options.status,
     };
+    if (options.status instanceof Array) {
+      Object.assign(conditions, {
+        $or: options.status.map((item) => ({ status: item })),
+      });
+    } else {
+      Object.assign(conditions, {
+        status: options.status,
+      });
+    }
     query.setQuery(conditions);
-    query.populate('labels', 'label alias');
-    query.select('title cover labels markdown content postedAt updatedAt createdAt');
+    !options.isAdmin && query.populate('labels', 'label alias');
+    query.select('title cover labels markdown postedAt updatedAt createdAt');
     const article = await query.exec();
     if (article) {
-      ctx.body = new Response(ResponseStatus.OK, article).body;
+      ctx.body = new Response(ResponseStatus.OK, article, '获取文章内容成功').body;
     } else {
       ctx.body = new Response(ResponseStatus.ERROR, null, '文章不存在或已被删除').body;
     }

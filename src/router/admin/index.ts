@@ -8,7 +8,7 @@ import getDailyActiveness from '../../methods/operation/getDailyActiveness';
 
 const router = new Router();
 
-router.get('/activiness', getDailyActiveness()); // 查询动态
+router.get('/activeness', getDailyActiveness()); // 查询动态
 
 router.use('/articles', articleRouter.routes());
 router.use('/drafts', draftRouter.routes());
