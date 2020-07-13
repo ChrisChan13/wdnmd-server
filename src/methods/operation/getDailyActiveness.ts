@@ -42,6 +42,9 @@ export default () => async (ctx: Context) => {
         },
       },
     });
+    aggregate.sort({
+      _id: -1,
+    });
     aggregate.project({
       _id: 0,
       date: '$_id.createdAt',

@@ -10,7 +10,14 @@ export default (options = {
   try {
     const { query: filters } = ctx.request;
     const query = ArticleModel.find();
-    query.populate('labels', 'label alias');
+    query.populate({
+      path: 'labels',
+      select: 'label alias parent',
+      populate: {
+        path: 'parent',
+        select: 'label alias',
+      },
+    });
     const conditions: any = {};
     if (options.status instanceof Array) {
       Object.assign(conditions, {
@@ -21,7 +28,6 @@ export default (options = {
         status: options.status,
       });
     }
-    console.log(conditions);
     filters.search && Object.assign(conditions, {
       title: new RegExp(filters.search, 'i'),
     });

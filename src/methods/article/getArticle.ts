@@ -23,8 +23,15 @@ export default (options = {
       });
     }
     query.setQuery(conditions);
-    !options.isAdmin && query.populate('labels', 'label alias');
-    query.select('title cover labels markdown postedAt updatedAt createdAt');
+    !options.isAdmin && query.populate({
+      path: 'labels',
+      select: 'label alias parent',
+      populate: {
+        path: 'parent',
+        select: 'label alias',
+      },
+    });
+    query.select(`title cover labels ${options.isAdmin ? 'markdown' : 'richtext'} postedAt updatedAt createdAt`);
     const article = await query.exec();
     if (article) {
       ctx.body = new Response(ResponseStatus.OK, article, '获取文章内容成功').body;

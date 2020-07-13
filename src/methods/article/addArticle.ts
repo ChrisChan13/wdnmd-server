@@ -1,17 +1,18 @@
 import { Context } from 'koa';
 
 import ArticleModel, { Status as ArticleStatus } from '../../models/article';
-import ArticleOperationModel, { Types as OperationTypes } from '../../models/article/operation';
+import ArticleOperationModel, { Types as OperationTypes, WEIGHTS } from '../../models/article/operation';
 import Response, { Status as ResponseStatus } from '../../utils/Response';
 
-const TYPES = new Map([
-  [ArticleStatus.DRAFT, OperationTypes.DRAFTED],
-  [ArticleStatus.ONLINE, OperationTypes.POSTED],
+const ACTIONS = new Map([
+  [ArticleStatus.DRAFT, { text: '草稿', type: OperationTypes.DRAFTED, weight: WEIGHTS.get(OperationTypes.DRAFTED) }],
+  [ArticleStatus.ONLINE, { text: '文章', type: OperationTypes.ONLINE, weight: WEIGHTS.get(OperationTypes.ONLINE) }],
 ]);
 
 export default (
   options = { status: ArticleStatus.ONLINE },
 ) => async (ctx: Context) => {
+  const action = ACTIONS.get(options.status);
   try {
     const { body: articleData } = ctx.request;
     delete articleData._id;
@@ -23,14 +24,14 @@ export default (
     });
     const article = new ArticleModel(articleData);
     await article.save();
-    const type = TYPES.get(article.status);
     const articleOperation = new ArticleOperationModel({
       article: article._id,
-      type,
+      type: action?.type,
+      weight: action?.weight,
     });
     await articleOperation.save();
-    ctx.body = new Response(ResponseStatus.OK, { article: article._id }, '添加文章成功').body;
+    ctx.body = new Response(ResponseStatus.OK, { article: article._id }, `添加${action?.text}成功`).body;
   } catch (err) {
-    ctx.body = new Response(ResponseStatus.ERROR, null, '添加文章失败', err).body;
+    ctx.body = new Response(ResponseStatus.ERROR, null, `添加${action?.text}失败`, err).body;
   }
 };

@@ -7,8 +7,8 @@ import Response, { Status as ResponseStatus } from '../../utils/Response';
 const ACTIONS = new Map([
   [ArticleStatus.TRASH, { text: '删除', type: OperationTypes.TRASHED, weight: WEIGHTS.get(OperationTypes.TRASHED) }],
   [ArticleStatus.DRAFT, { text: '恢复', type: OperationTypes.RESTORED, weight: WEIGHTS.get(OperationTypes.RESTORED) }],
-  [ArticleStatus.OFFLINE, { text: '下架', type: OperationTypes.ONLINE, weight: WEIGHTS.get(OperationTypes.ONLINE) }],
-  [ArticleStatus.ONLINE, { text: '上架', type: OperationTypes.OFFLINE, weight: WEIGHTS.get(OperationTypes.OFFLINE) }],
+  [ArticleStatus.OFFLINE, { text: '下架', type: OperationTypes.OFFLINE, weight: WEIGHTS.get(OperationTypes.OFFLINE) }],
+  [ArticleStatus.ONLINE, { text: '上架', type: OperationTypes.ONLINE, weight: WEIGHTS.get(OperationTypes.ONLINE) }],
 ]);
 
 export default (
