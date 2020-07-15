@@ -15,6 +15,9 @@ export default () => async (ctx: Context) => {
         $gte: start,
         $lte: end,
       },
+      weight: {
+        $gt: 0,
+      },
     });
     aggregate.group({
       _id: {
