@@ -9,7 +9,10 @@ export default {
   },
   Github: 'https://github.com/ChrisChan13',
   'E-Mail': 'chrischan1213@qq.com',
-  'Web-Site': 'https://chrischan13.github.io/wdnmd',
+  'Web-Sites': [
+    'https://chrischan13.github.io/wdnmd',
+    'https://chrischan13.gitee.io/wdnmd',
+  ],
   Certificates: [{
     Time: '2017-01',
     Name: 'CET-6',
