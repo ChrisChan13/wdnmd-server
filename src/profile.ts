@@ -8,7 +8,7 @@ export default {
     English: 'CET-6',
   },
   Github: 'https://github.com/ChrisChan13',
-  'E-Mail': 'chrischan1213@qq.com',
+  'E-Mail': 'mailto:chrischan1213@qq.com',
   'Web-Sites': [
     'https://chrischan13.github.io/wdnmd',
     'https://chrischan13.gitee.io/wdnmd',
